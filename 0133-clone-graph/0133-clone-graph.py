@@ -8,22 +8,21 @@ class Node:
 
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        if not node:
-            return None
-
         oldToNew = {}
-        oldToNew[node] = Node(node.val)
-        q = deque([node])
 
-        while q:
-            cur = q.popleft()
-            for nei in cur.neighbors:
-                if nei not in oldToNew:
-                    oldToNew[nei] = Node(nei.val)
-                    q.append(nei)
-                oldToNew[cur].neighbors.append(oldToNew[nei])
+        def dfs(node):
+            if node in oldToNew:
+                return oldToNew[node]
 
-        return oldToNew[node]
+            copy = Node(node.val)
+            oldToNew[node] = copy
+            for nei in node.neighbors:
+                copy.neighbors.append(dfs(nei))
+            return copy
+
+        return dfs(node) if node else None
+
+
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
