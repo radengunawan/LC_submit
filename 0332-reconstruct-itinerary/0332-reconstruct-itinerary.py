@@ -4,16 +4,14 @@ class Solution:
         for src, dst in sorted(tickets)[::-1]:
             adj[src].append(dst)
 
-        stack = ["JFK"]
         res = []
+        def dfs(src):
+            while adj[src]:
+                dst = adj[src].pop()
+                dfs(dst)
+            res.append(src)
 
-        while stack:
-            curr = stack[-1]
-            if not adj[curr]:
-                res.append(stack.pop())
-            else:
-                stack.append(adj[curr].pop())
-
+        dfs('JFK')
         return res[::-1]
 
 # Synced seamlessly with LeetHub Pro
