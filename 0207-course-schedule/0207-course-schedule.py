@@ -1,7 +1,9 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
 
-        courseMap = {i : [] for i in range(numCourses)}
+        N = numCourses
+        courseMap = [[] for i in range (numCourses)]
+        # {i : [] for i in range(numCourses)}
 
         for course, prereq in prerequisites:
             courseMap[course].append(prereq) 
@@ -24,8 +26,6 @@ class Solution:
             visiting.remove(course)
 
             return True
-
-
 
         for course in range (numCourses):
             if not DFS(course):
