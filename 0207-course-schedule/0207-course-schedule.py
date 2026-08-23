@@ -1,31 +1,36 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # Map each course to its prerequisites
-        preMap = {i: [] for i in range(numCourses)}
-        for crs, pre in prerequisites:
-            preMap[crs].append(pre)
 
-        # Store all courses along the current DFS path
+        courseMap = {i : [] for i in range(numCourses)}
+
+        for course, prereq in prerequisites:
+            courseMap[course].append(prereq) 
+        
         visiting = set()
 
-        def dfs(crs):
-            if crs in visiting:
-                # Cycle detected
-                return False
-            if preMap[crs] == []:
+        def DFS(course):
+            if courseMap[course] == []:
                 return True
+            if course in visiting:
+                return False
 
-            visiting.add(crs)
-            for pre in preMap[crs]:
-                if not dfs(pre):
+            visiting.add(course)
+
+            for prereq in courseMap[course]:
+                if not DFS(prereq):
                     return False
-            visiting.remove(crs)
-            preMap[crs] = []
+            
+            courseMap[course] = []
+            visiting.remove(course)
+
             return True
 
-        for c in range(numCourses):
-            if not dfs(c):
+
+
+        for course in range (numCourses):
+            if not DFS(course):
                 return False
+        
         return True
 
 # Synced seamlessly with LeetHub Pro
