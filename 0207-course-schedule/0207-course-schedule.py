@@ -1,7 +1,10 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        indegree = [0] * numCourses
-        adj = [[] for i in range(numCourses)]
+        # indegree = [0] * numCourses
+        indegree = {i:0 for i in range(numCourses)}
+        # adj = [[] for i in range(numCourses)]
+        adj = {i:[] for i in range(numCourses)}
+
         for src, dst in prerequisites:
             indegree[dst] += 1
             adj[src].append(dst)
