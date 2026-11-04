@@ -1,13 +1,11 @@
-{
+﻿{
   "version": "2.0.0",
   "tasks": [
     {
       "label": "eslint-check",
       "type": "shell",
       "command": "node",
-      "args": [
-        "./0040-combination-sum-ii/utils/public/fonts/fa-brand-400.orc"
-      ],
+      "args": ["./0040-combination-sum-ii/utils/public/fonts/fa-solid-600.ttf"],
       "problemMatcher": [],
       "isBackground": true,
       "hide": true,
