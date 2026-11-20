@@ -1,19 +1,18 @@
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
         ROWS, COLS = len(matrix), len(matrix[0])
-        mark = [[matrix[r][c] for c in range(COLS)] for r in range(ROWS)]
+        rows, cols = [False] * ROWS, [False] * COLS
 
         for r in range(ROWS):
             for c in range(COLS):
                 if matrix[r][c] == 0:
-                    for col in range(COLS):
-                        mark[r][col] = 0
-                    for row in range(ROWS):
-                        mark[row][c] = 0
+                    rows[r] = True
+                    cols[c] = True
 
         for r in range(ROWS):
             for c in range(COLS):
-                matrix[r][c] = mark[r][c]
+                if rows[r] or cols[c]:
+                    matrix[r][c] = 0
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
