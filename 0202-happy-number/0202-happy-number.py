@@ -1,11 +1,15 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
         slow, fast = n, self.sumOfSquares(n)
+        power = lam = 1
 
         while slow != fast:
+            if power == lam:
+                slow = fast
+                power *= 2
+                lam = 0
             fast = self.sumOfSquares(fast)
-            fast = self.sumOfSquares(fast)
-            slow = self.sumOfSquares(slow)
+            lam += 1
         return True if fast == 1 else False
 
     def sumOfSquares(self, n: int) -> int:
