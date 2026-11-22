@@ -1,13 +1,23 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        if not digits:
-            return [1]
+        one = 1
+        i = 0
+        digits.reverse()
 
-        if digits[-1] < 9:
-            digits[-1] += 1
-            return digits
-        else:
-            return self.plusOne(digits[:-1]) + [0]
+        while one:
+            if i < len(digits):
+                if digits[i] == 9:
+                    digits[i] = 0
+                else:
+                    digits[i] += 1
+                    one = 0
+            else:
+                digits.append(one)
+                one = 0
+            i += 1
+
+        digits.reverse()
+        return digits
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
