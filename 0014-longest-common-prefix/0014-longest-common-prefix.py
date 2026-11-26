@@ -1,9 +1,12 @@
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        for i in range(len(strs[0])):
-            for s in strs:
-                if i == len(s) or s[i] != strs[0][i]:
-                    return s[:i]
+        if len(strs) == 1:
+            return strs[0]
+
+        strs = sorted(strs)
+        for i in range(min(len(strs[0]), len(strs[-1]))):
+            if strs[0][i] != strs[-1][i]:
+                return strs[0][:i]
         return strs[0]
 
 # Synced seamlessly with LeetHub Pro
