@@ -1,32 +1,14 @@
 class Solution:
     def islandPerimeter(self, grid: List[List[int]]) -> int:
-        rows, cols = len(grid), len(grid[0])
-        visited = set()
-        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-
-        def bfs(r, c):
-            queue = deque([(r, c)])
-            visited.add((r, c))
-            perimeter = 0
-
-            while queue:
-                x, y = queue.popleft()
-                for dx, dy in directions:
-                    nx, ny = x + dx, y + dy
-                    if (nx < 0 or ny < 0 or nx >= rows or
-                        ny >= cols or grid[nx][ny] == 0
-                    ):
-                        perimeter += 1
-                    elif (nx, ny) not in visited:
-                        visited.add((nx, ny))
-                        queue.append((nx, ny))
-            return perimeter
-
-        for i in range(rows):
-            for j in range(cols):
+        m, n, res = len(grid), len(grid[0]), 0
+        for i in range(m):
+            for j in range(n):
                 if grid[i][j] == 1:
-                    return bfs(i, j)
-        return 0
+                    res += (i + 1 >= m or grid[i + 1][j] == 0)
+                    res += (j + 1 >= n or grid[i][j + 1] == 0)
+                    res += (i - 1 < 0 or grid[i - 1][j] == 0)
+                    res += (j - 1 < 0 or grid[i][j - 1] == 0)
+        return res
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
