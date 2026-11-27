@@ -1,13 +1,15 @@
 class Solution:
     def islandPerimeter(self, grid: List[List[int]]) -> int:
-        m, n, res = len(grid), len(grid[0]), 0
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == 1:
-                    res += (i + 1 >= m or grid[i + 1][j] == 0)
-                    res += (j + 1 >= n or grid[i][j + 1] == 0)
-                    res += (i - 1 < 0 or grid[i - 1][j] == 0)
-                    res += (j - 1 < 0 or grid[i][j - 1] == 0)
+        m, n = len(grid), len(grid[0])
+        res = 0
+        for r in range(m):
+            for c in range(n):
+                if grid[r][c] == 1:
+                    res += 4
+                    if r and grid[r - 1][c]:
+                        res -= 2
+                    if c and grid[r][c - 1] == 1:
+                        res -= 2
         return res
 
 # Synced seamlessly with LeetHub Pro
