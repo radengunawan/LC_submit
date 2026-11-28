@@ -1,28 +1,24 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        res, n = [], len(nums)
-        visit = [False] * n
-        perm = []
+        res = []
 
-        def dfs():
-            if len(perm) == n:
-                res.append(perm.copy())
+        def dfs(i):
+            if i == len(nums):
+                res.append(nums.copy())
                 return
 
-            for i in range(n):
-                if visit[i]:
+            for j in range(i, len(nums)):
+                if j > i and nums[i] == nums[j]:
                     continue
 
-                if i and nums[i] == nums[i - 1] and not visit[i - 1]:
-                    continue
-                visit[i] = True
-                perm.append(nums[i])
-                dfs()
-                visit[i] = False
-                perm.pop()
+                nums[i], nums[j] = nums[j], nums[i]
+                dfs(i + 1)
+
+            for j in range(len(nums) - 1, i, -1):
+                nums[j], nums[i] = nums[i], nums[j]
 
         nums.sort()
-        dfs()
+        dfs(0)
         return res
 
 # Synced seamlessly with LeetHub Pro
